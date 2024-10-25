@@ -1,16 +1,9 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
 import Blog from "./Blog";
 
-const Blogs = ({ handleBookmark, handleRead }) => {
-  const [blogs, setBlogs] = useState([]);
-  useEffect(() => {
-    fetch("blogs.json")
-      .then((res) => res.json())
-      .then((data) => setBlogs(data));
-  }, []);
+const Blogs = ({ handleBookmark, handleRead, blogs }) => {
   return (
-    <div>
+    <div className="grid grid-cols-2 gap-5">
       {blogs.map((blog) => (
         <Blog
           key={blog.id}
@@ -26,6 +19,7 @@ const Blogs = ({ handleBookmark, handleRead }) => {
 Blogs.propTypes = {
   handleBookmark: PropTypes.func,
   handleRead: PropTypes.func,
+  blogs: PropTypes.array,
 };
 
 export default Blogs;

@@ -13,7 +13,7 @@ const Blog = ({ blog, handleBookmark, handleRead }) => {
     hashtags,
   } = blog;
   return (
-    <div className="mb-10">
+    <div className="mb-10 border p-5 rounded-md">
       <img className="rounded-lg w-full" src={cover} alt="" />
       <div className="mt-10 flex justify-between">
         <div className="flex items-center gap-5">
@@ -30,7 +30,7 @@ const Blog = ({ blog, handleBookmark, handleRead }) => {
           </button>
         </div>
       </div>
-      <h2 className="text-4xl font-bold my-4">{title}</h2>
+      <h2 className="text-2xl font-bold my-4">{title}</h2>
       {hashtags.map((has, index) => (
         <a className="px-2" key={index} href="#">
           # {has}

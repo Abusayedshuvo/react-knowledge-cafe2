@@ -8,7 +8,7 @@ const Bookmarks = ({ bookmarks, readingTime }) => {
           Spent time on read : {readingTime} min
         </p>
       </div>
-      <div className="bg-[#1111110d] p-8 rounded-md">
+      <div className="bg-[#1111110d] p-8 rounded-md mt-5">
         <p className="text-2xl font-bold mb-5">
           Bookmarked Blogs : {bookmarks.length}
         </p>

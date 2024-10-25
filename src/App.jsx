@@ -1,21 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Blogs from "./components/Blogs/Blogs";
 import Bookmarks from "./components/Bookmarks/Bookmarks";
 import Header from "./components/Header/Header";
+import { addLS, getStoreCart } from "../public/localstroge";
 
 function App() {
   const [bookmarks, setBookmarks] = useState([]);
-  const [readingTime, setreadingTime] = useState(0);
+  const [readingTime, setReadingTime] = useState(0);
+  const [blogs, setBlogs] = useState([]);
+
+  useEffect(() => {
+    fetch("blogs.json")
+      .then((res) => res.json())
+      .then((data) => setBlogs(data));
+  }, []);
+
   const handleBookmark = (blog) => {
-    const newBookmark = [...bookmarks, blog];
+    const newBookmark = [...new Set(bookmarks), blog];
     setBookmarks(newBookmark);
+    addLS(blog.id);
   };
   const handleRead = (id, time) => {
-    setreadingTime(readingTime + time);
+    setReadingTime(readingTime + time);
     const remaingBookmark = bookmarks.filter((bookmark) => bookmark.id !== id);
-    console.log(remaingBookmark, id);
     setBookmarks(remaingBookmark);
   };
+
+  useEffect(() => {
+    if (blogs.length > 0) {
+      const storeCart = getStoreCart();
+      console.log(storeCart);
+    }
+  }, [blogs]);
   return (
     <>
       <div className="container mx-auto lg:px-10">
@@ -26,6 +42,7 @@ function App() {
               <Blogs
                 handleBookmark={handleBookmark}
                 handleRead={handleRead}
+                blogs={blogs}
               ></Blogs>
             </div>
             <div className="col-span-1">
